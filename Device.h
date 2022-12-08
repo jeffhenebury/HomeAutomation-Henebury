@@ -15,7 +15,7 @@ public:
 	std::string deviceSound; //will be overloaded for each device
 	WeekSchedule DeviceSchedule;
 
-	virtual void getPowerStatus(); //a way to find if the device is on or off
+	virtual void getPowerStatus(); //a way to find if the device is currently on or off
 	virtual void onOrOff(); //user inputs whether they want the device turned on or off
 	//virtual void setPowerStatus(bool tOrF); //press powerbutton, if on turn off, else it's off and turn on
 	virtual void getSchedule();	//print out the current schedule

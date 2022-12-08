@@ -3,7 +3,7 @@
 
 Thermostat::Thermostat() //constructor
 {
-	std::string deviceSound = "Clang! Clang! (Radiators are clanging!)"; //will be overloaded for each device
+	deviceSound = "Clang! Clang! (Radiators are clanging!)"; //will be overloaded for each device
 	power = false; //start with power turned off
 	currentTemp = 68;
 }
@@ -12,26 +12,16 @@ Thermostat::~Thermostat()
 {
 }
 
-void Thermostat::setPowerStatus(bool tOrF)
-{
-	power = tOrF;
-}
-
-void Thermostat::getSchedule()
-{
-	//find a way to print this...
-}
-
-void Thermostat::setSchedule(std::string dayOfWeek)
-{
-	//find a way to set this...
-}
+//void Thermostat::setPowerStatus(bool tOrF)
+//{
+//	power = tOrF;
+//}
 
 
-void Thermostat::doAction()
-{
-	std::cout << deviceSound;	//mimic the action via printing a sound
-}
+//void Thermostat::doAction()
+//{
+//	std::cout << deviceSound;	//mimic the action via printing a sound
+//}
 
 double Thermostat::getCurrentTemp()
 {
@@ -40,6 +30,14 @@ double Thermostat::getCurrentTemp()
 
 void Thermostat::setCurrentTemp(double newTemp)
 {
+	if (newTemp < 0) {
+		cout << "Brrr! Too cold! Please try again.\n";
+		return;
+	}
+	if (newTemp > 90) {
+		cout << "Yikes! Too hot! Please try again.\n";
+		return;
+	}
 	currentTemp = newTemp;
 }
 

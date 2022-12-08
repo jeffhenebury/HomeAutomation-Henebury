@@ -8,10 +8,7 @@ public:
 	Television();
 	~Television();
 	int currentChannel;
-	bool power;
-	virtual void getSchedule();	//print out the current schedule
-	virtual void setSchedule(std::string dayOfWeek); //input a day of the week, prompt for change to schedule
-	virtual void doAction(); //make a sound when the device is running
+	//bool power;	//overload this, i guess?
 	virtual double getCurrentChannel();
 	virtual void setCurrentChannel(int newChannel);
 

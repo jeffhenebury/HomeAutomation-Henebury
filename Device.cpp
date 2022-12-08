@@ -5,7 +5,7 @@ using namespace std;
 
 Device::Device()
 {
-	std::string deviceSound = "click, I'm a generic device"; //will be overloaded for each device
+	deviceSound = "Click! I'm a generic device!"; //will be overloaded for each device
 	power = false; //start with power turned off
 	DeviceSchedule;
 }
@@ -14,7 +14,7 @@ Device ::~Device()
 }
 void Device::doAction()	//mimics the device doing its thing
 {
-	cout << "I'm the base class action!";
+	cout << deviceSound << endl;
 }
 
 
@@ -66,6 +66,7 @@ void Device::onOrOff()
 	if (inp == 1) { //on, so true
 		cout << "You have powered the device ON.\n";
 		power = true; //turn power on
+		doAction();
 	}
 	else {
 		cout << "You have powered the device OFF.\n";

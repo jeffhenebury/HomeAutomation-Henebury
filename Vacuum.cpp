@@ -2,7 +2,6 @@
 
 Vacuum::Vacuum()
 {
-	power = false;
 	currentRoom = "Living Room";
 	std::vector <std::string> rooms = { "living room", "dining room", "bedroom" };
 }

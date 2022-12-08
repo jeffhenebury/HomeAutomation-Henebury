@@ -2,24 +2,18 @@
 
 Lights::Lights()
 {
-	power = false;
+
 	currentRoom = "Living Room";
 	std::vector <std::string> rooms = { "living room", "dining room", "bedroom" };
-	lightsSchedule;
+	std::string deviceSound = "CLICK! (There go the lights!)\n";
+	//lightsSchedule;
+
 }
 
 Lights::~Lights()
 {
 }
 
-void Lights::getSchedule()
-{
-	lightsSchedule.printWeeklySchedule();
-}
-
-void Lights::setSchedule(std::string dayOfWeek)
-{
-}
 
 void Lights::doAction()
 {

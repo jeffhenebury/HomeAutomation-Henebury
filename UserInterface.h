@@ -26,7 +26,7 @@ public:
 	void showOptionsForLights();
 	void showOptionsForSecurity();
 	void showOptionsForVacuum();
-	void getDeviceSchedule(Device anyDevice);
+	//void setDeviceSchedule(Device anyDevice);	//couldn't get this to work, going back to device specific
 
 	Device myDevice;	//for testing
 	Television myTelevision;
