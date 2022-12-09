@@ -118,7 +118,7 @@ int WeekSchedule::getDayOfWeekFromString() {
 
 void WeekSchedule::printWeeklySchedule()	//print out each day in the vector of Days
 {
-	for (Day day : weeklySchedule) {
+	for (Day & day : weeklySchedule) {
 		day.printDay();
 	}
 }

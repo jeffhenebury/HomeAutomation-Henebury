@@ -14,8 +14,7 @@ using namespace std;
 
 UserInterface::UserInterface()
 {
-	devices = { "Thermostat", "TV", "Lights" , "Security"};
-	//Device myDevice;
+	devices = { "Thermostat", "TV", "Lights" , "Security"};	//i don't think this is needed in the end...
 }
 
 UserInterface::~UserInterface() //destructor
@@ -39,18 +38,16 @@ void UserInterface::getInput(){
 			showOptionsForDevice();
 			continue;	//after you exit the device loop, back to the all-device loop
 		};
-		if (input == 1) {
-			//cout << "TEST, you put in thermostat.\n";
+		if (input == 1) {	//thermostat
 			showOptionsForThermostat();
 			continue;
 		};
 		if (input == 2) {
-			//cout << "TEST, you put in TV.\n";
 			showOptionsForTV();
 			continue;
 		};
-		if (input == 3) {
-		//	cout << "TEST, you put in lights.\n";
+		if (input == 3) {	//lights
+		//	cout << "TEST, you put in Hights.\n";
 			showOptionsForLights();
 			continue;
 		};
@@ -136,31 +133,31 @@ void UserInterface::showOptionsForLights()
 	while (true)
 	{
 		int deviceInput;
-		cout << "Enter the number (1-4) of the option you'd like to select:\n";
-		cout << "1.Check power status\n2.Turn the power on or off\n3.View current schedule"<<
-			"\n4.Set schedule\n5.Quit to go back\n";
+		cout << "\n****\n";
+		cout << "Enter the number (1 - 6) of the option you'd like to select:\n";
+		cout << "1.Check current power status\n2.Turn the lights on or off\n3.Get a list of light-connected rooms\n"
+			<< "4.Get current schedule\n5.Set schedule\n6.Quit to go back\n";
 		cout << "What would you like to do?\n";
 		cin >> deviceInput;
 		/*std::transform(deviceInput.begin(), deviceInput.end(), deviceInput.begin(),
 			[](unsigned char c) { return std::tolower(c); });*/
 		if (deviceInput == 1) {
-			cout << "TEST, you got to POWER STATUS\N";
-			myDevice.getPowerStatus();
+			cout << "\nTEST, you got to POWER STATUS\n";
+			myLights.getPowerStatus();
 		};
 		if (deviceInput == 2) {
-			cout << "TEST, you got to CHANGE POWER STATUS\N";
 			myLights.onOrOff();
 		};
-		if (deviceInput == 3) {
-			//view schedule
+		if (deviceInput == 3) {	//get a list of rooms, see if they're on or off
+			myLights.printRooms();
+		};
+		if (deviceInput == 4) {	//Getting current scheduling
 			myLights.getSchedule();
 		};
-		if (deviceInput == 4) {
-			cout << "TEST, you got to CHANGE SCHEDULE\N";
+		if (deviceInput == 5) {	//setting scheduling
 			myLights.setSchedule();
-			//UserInterface::setDeviceSchedule(myLights);
 		};
-		if (deviceInput == 5) {
+		if (deviceInput == 6) {
 			cout << "Back to Main Menu...\n";
 			break;
 		};
@@ -220,7 +217,7 @@ void UserInterface::showOptionsForTV()
 		cin >> deviceInput;
 		/*std::transform(deviceInput.begin(), deviceInput.end(), deviceInput.begin(),
 			[](unsigned char c) { return std::tolower(c); });*/
-		if (deviceInput == 1) {	//check power suatus
+		if (deviceInput == 1) {	//check power status
 			myTelevision.getPowerStatus();
 		};
 		if (deviceInput == 2) { //set new power status
@@ -232,7 +229,6 @@ void UserInterface::showOptionsForTV()
 		if (deviceInput == 4) { //change the channel
 			int newChannel;
 			int oldChannel = myTelevision.getCurrentChannel();
-			//cout << "TEST, you got to CHANGE THE CHANNEL.\N";
 			cout << "The current channel is set to: " << oldChannel << ".\n";
 			cout << "What would you like to change it to?\n";
 			cin >> newChannel;
@@ -260,34 +256,36 @@ void UserInterface::showOptionsForTV()
 void UserInterface::showOptionsForVacuum() {
 	cout << "Great, you chose Vacuum.\n";
 	while (true)
-	{
-		int deviceInput;
-		cout << "Enter the number (1-4) of the option you'd like to select:\n";
-		cout << "1.Check power status\n2.Turn the power on or off\n3.Change the room you're vaccumming\n4.Set schedule\n5.Quit to go back\n";
-		cout << "What would you like to do?\n";
-		cin >> deviceInput;
-		/*std::transform(deviceInput.begin(), deviceInput.end(), deviceInput.begin(),
-			[](unsigned char c) { return std::tolower(c); });*/
-		if (deviceInput == 1) {
-			cout << "TEST, you got to POWER STATUS\N";
-			myVac.getPowerStatus();
-		};
-		if (deviceInput == 2) {
-			cout << "TEST, you got to CHANGE POWER STATUS\N";
-			myVac.onOrOff();
-		};
-		if (deviceInput == 3) {
-			cout << "TEST, you got to CHANGE ROOM\N";
-			myVac.onOrOff();
-		};
-		if (deviceInput == 4) {
-			//NEED TO FIGURE OUT SCHEDULE
-			cout << "****************TEST, NEED TO FIGURE OUT SCHEDULE**************\N.";
-		};
-		if (deviceInput == 5) {
-			cout << "Back to Main Menu...\n";
-			break;
-		};
+		{
+			int deviceInput;
+			cout << "\n****\n";
+			cout << "Enter the number (1 - 6) of the option you'd like to select:\n";
+			cout << "1.Check current power status\n2.Turn the vacuum on or off\n3.Get a list of vacuum-connected rooms\n"
+				<< "4.Get current schedule\n5.Set schedule\n6.Quit to go back\n";
+			cout << "What would you like to do?\n";
+			cin >> deviceInput;
+			/*std::transform(deviceInput.begin(), deviceInput.end(), deviceInput.begin(),
+				[](unsigned char c) { return std::tolower(c); });*/
+			if (deviceInput == 1) {
+				cout << "\nTEST, you got to POWER STATUS\n";
+				myVac.getPowerStatus();
+			};
+			if (deviceInput == 2) {
+				myVac.onOrOff();
+			};
+			if (deviceInput == 3) {	//get a list of rooms, see if they're on or off
+				myVac.printRooms();
+			};
+			if (deviceInput == 4) {	//Getting current scheduling
+				myVac.getSchedule();
+			};
+			if (deviceInput == 5) {	//setting scheduling
+				myVac.setSchedule();
+			};
+			if (deviceInput == 6) {
+				cout << "Back to Main Menu...\n";
+				break;
+			};
 	}
 }
 

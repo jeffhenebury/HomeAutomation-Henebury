@@ -8,13 +8,18 @@ Device::Device()
 	deviceSound = "Click! I'm a generic device!"; //will be overloaded for each device
 	power = false; //start with power turned off
 	DeviceSchedule;
+	//for vacuum and lights, list of rooms
+	rooms.push_back("Living Room");
+	rooms.push_back("Dining Room");
+	rooms.push_back("Bedroom");
+	rooms.push_back("Kitchen");
 }
 Device ::~Device()
 {
 }
 void Device::doAction()	//mimics the device doing its thing
 {
-	cout << deviceSound << endl;
+	cout <<"\n" << deviceSound << endl;
 }
 
 

@@ -2,22 +2,13 @@
 
 Lights::Lights()
 {
-
 	currentRoom = "Living Room";
-	std::vector <std::string> rooms = { "living room", "dining room", "bedroom" };
-	std::string deviceSound = "CLICK! (There go the lights!)\n";
-	//lightsSchedule;
-
+	//std::vector <std::string> rooms = { "living room", "dining room", "bedroom" };
+	deviceSound = "CLICK! (There go the lights!)\n";
 }
 
 Lights::~Lights()
 {
-}
-
-
-void Lights::doAction()
-{
-	std::cout << "CLICK! (There go the lights!)\n";
 }
 
 std::string Lights::getCurrentRoom()
@@ -34,4 +25,18 @@ void Lights::setCurrentRoom(std::string newRoom)
 	else {
 		std::cout << "I'm sorry, but " << newRoom << " is not in my list of rooms! Please try again.\n";
 	};
+}
+
+void Lights::printRooms()
+{
+	if (power) {
+		cout << "Lights are currently ON in the following rooms:\n";
+
+	}
+	else if (!power) {
+		cout << "Lights are currently OFF in the following rooms:\n";
+	}
+	for (string room : rooms) {
+		cout << room << "\n";
+	}
 }

@@ -4,25 +4,11 @@ Vacuum::Vacuum()
 {
 	currentRoom = "Living Room";
 	std::vector <std::string> rooms = { "living room", "dining room", "bedroom" };
+	deviceSound = "VROOOOOOOM! (Sorry kitten, I know you're scared of the vacuum!)\n";
 }
 
 Vacuum::~Vacuum()
 {
-}
-
-void Vacuum::getSchedule()
-{
-	//NEED TO FIGURE OUT SCHEDULE
-}
-
-void Vacuum::setSchedule(std::string dayOfWeek)
-{
-	//NEED TO FIGURE OUT SCHEDULE
-}
-
-void Vacuum::doAction()
-{
-	std::cout << "VROOOOOOOM! (Sorry kitten, I know you're scared of the vacuum!\n";
 }
 
 std::string Vacuum::getCurrentRoom()
@@ -39,4 +25,17 @@ void Vacuum::setCurrentRoom(std::string newRoom)
 	else {
 		std::cout << "I'm sorry, but " << newRoom << " is not in my list of rooms! Please try again.\n";
 	};
+}
+
+void Vacuum::printRooms()
+{
+	if (power) {
+		cout << "Vacuum is currently ON and cleaning the following rooms:\n";
+	}
+	else if (!power) {
+		cout << "Lights are currently OFF and cleaning the following rooms:\n";
+	}
+	for (string room : rooms) {
+		cout << room << "\n";
+	}
 }

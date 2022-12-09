@@ -14,6 +14,7 @@ public:
 	bool power;	//false for off, true for on
 	std::string deviceSound; //will be overloaded for each device
 	WeekSchedule DeviceSchedule;
+	std::vector <std::string> rooms;	//for those devices where we need to know specific rooms... this could be built out more later
 
 	virtual void getPowerStatus(); //a way to find if the device is currently on or off
 	virtual void onOrOff(); //user inputs whether they want the device turned on or off

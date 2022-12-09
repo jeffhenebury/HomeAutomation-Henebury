@@ -11,15 +11,10 @@ class Lights : public Device {
 public:
 	Lights();
 	~Lights();
-	std::vector <std::string> rooms;
-	std::string currentRoom;	//tell vacuum what room to vacuum
-	//WeekSchedule lightsSchedule;
-
-	//virtual void getSchedule();	//print out the current schedule... will this inherit?
-	//virtual void setSchedule(std::string dayOfWeek); //input a day of the week, prompt for change to schedule
-	virtual void doAction(); //make a sound when the device is running
+	string currentRoom;	//tell vacuum what room to change... this is later functionality
 	virtual std::string getCurrentRoom();
 	virtual void setCurrentRoom(std::string newRoom);
+	void printRooms();
 
 };
 
