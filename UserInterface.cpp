@@ -8,72 +8,74 @@ and then, within each device, a 'choose what you want to do with that device' lo
 #include "UserInterface.h"
 #include <iostream>
 #include <algorithm>	//for transform
-#include <cctype>
 #include <string>
 using namespace std;
 
 UserInterface::UserInterface()
-{
-	devices = { "Thermostat", "TV", "Lights" , "Security"};	//i don't think this is needed in the end...
+{	
+	//point the pointers to the respective class instances
+	pMyThermostat = &myThermostat;
+	pMyTelevision = &myTelevision;
+	pMyLights = &myLights;
+	pMySecSystem = &mySecSystem;
+	pMyVac = &myVac;
+	//fill the Device vector with all the device objects 
+	allDevices.push_back(myThermostat);
+	allDevices.push_back(myTelevision);
+	allDevices.push_back(myLights);
+	allDevices.push_back(mySecSystem);
+	allDevices.push_back(myVac);
 }
 
 UserInterface::~UserInterface() //destructor
 {
 }
 void UserInterface::getInput(){
+	int input;
 	while (true) {
-		//string input;	//moving to int
-		int input;
 		cout << "Welcome to the Henebury Device Manager. We take care of all your devices!\n";
 		cout << "Here is the list of connected Devices:\n";
 		cout << "1.Thermostat\n2.Television\n3.Lights\n4.Security System\n5.Vacuum\n6.Exit program\n";
-		//LoopThroughDevices();
 		cout << "\nWhich device would you like to access? (Enter 1-5, or 6 to exit): ";
-		cin >> input;
-		/*std::transform(input.begin(), input.end(), input.begin(),
-			[](unsigned char c) { return std::tolower(c); });*/
-		//if (input == "device") {
-			if (input == 0) {
-			//cout << "TEST, you put in the secret input for Device.\n";
+		if ((cin >> input)) {
+			if (input == 0) {	//base class Device, just for testing purposes
 			showOptionsForDevice();
-			continue;	//after you exit the device loop, back to the all-device loop
-		};
-		if (input == 1) {	//thermostat
-			showOptionsForThermostat();
 			continue;
-		};
-		if (input == 2) {
-			showOptionsForTV();
-			continue;
-		};
-		if (input == 3) {	//lights
-		//	cout << "TEST, you put in Hights.\n";
-			showOptionsForLights();
-			continue;
-		};
-		if (input == 4) {
-		//	cout << "TEST, you put in security system.\n";
-			showOptionsForSecurity();
-			continue;
-		};
-		if (input == 5) {
-		//	cout << "TEST, you put in Vacuum.\n";
-			showOptionsForVacuum();
-			continue;
-		};
-		if (input == 6) {
-			cout << "\nThank you for using the Henebury Device Manager. Goodbye!\n";
-			break;
+			}
+			if (input == 1) {	//thermostat
+				showOptionsForThermostat();
+				continue;
+			}
+			if (input == 2) {	//TV
+				showOptionsForTV();
+				continue;
+			}
+			if (input == 3) {	//lights
+				showOptionsForLights();
+				continue;
+			}
+			if (input == 4) {	//security system
+				showOptionsForSecurity();
+				continue;
+			}
+			if (input == 5) {	//vacuum
+				showOptionsForVacuum();
+				continue;
+			}
+			if (input == 6) {
+				cout << "\nThank you for using the Henebury Device Manager. Goodbye!\n";
+				break;
+			}
+		}
+		else {
+			// not a valid number, give error message and redo the loop
+			cout << "\nInvalid Input! Please input a numerical value.\n\n";
+			cin.clear();    //clear inputted value
+			while (cin.get() != '\n'); // empty the loop, start over
 		};
 	};
+}
 
-}
-void UserInterface::LoopThroughDevices()
-{
-	for (int i = 0; i < devices.size(); i++) {
-		cout <<(i+1) <<"." << devices[i] << endl;
-	}
-}
 
 void UserInterface::showOptionsForThermostat()
 {
@@ -87,18 +89,30 @@ void UserInterface::showOptionsForThermostat()
 			<< "4.Get current schedule\n5.Set schedule\n6.Quit to go back\n";
 		cout << "What would you like to do?\n";
 		cin >> deviceInput;
-		/*std::transform(deviceInput.begin(), deviceInput.end(), deviceInput.begin(),
-			[](unsigned char c) { return std::tolower(c); });*/
-		if (deviceInput == 1) {
-			cout << "\nTEST, you got to POWER STATUS\n";
-			myThermostat.getPowerStatus();
+		//if it's not a number, catch the error, dump back to the main menu
+		/*try
+		{
+			cin >> deviceInput;
+			if (!isdigit(deviceInput)) {
+				throw "TEST, You have to put in a number!";
+			}
+		}
+		catch (const std::exception& bad)
+		{
+			cout << bad.what() << endl;
+			cout << "Returning to Main Menu.\n";
+			return;
+		}
+		*/
+		if (deviceInput == 1) { //check power status
+			pMyThermostat->getPowerStatus();
 		};
 		if (deviceInput == 2) {
 			//cout << "TEST, you got to CHANGE POWER STATUS\N";
-			myThermostat.onOrOff();
+			pMyThermostat->onOrOff();
 		};
 		if (deviceInput == 3) {
-			myThermostat.changeTheTemp();
+			pMyThermostat->changeTheTemp();
 			//put the below into a method instead...
 			/*int newTemp;
 			int oldTemp = myThermostat.getCurrentTemp();
@@ -115,10 +129,10 @@ void UserInterface::showOptionsForThermostat()
 			}*/
 		};
 		if (deviceInput == 4) {	//Getting current scheduling
-			myThermostat.getSchedule();
+			pMyThermostat->getSchedule();
 		};
 		if (deviceInput == 5) {	//setting scheduling
-			myThermostat.setSchedule();
+			pMyThermostat->setSchedule();
 		};
 		if (deviceInput == 6) {
 			cout << "Back to Main Menu...\n";
@@ -139,23 +153,37 @@ void UserInterface::showOptionsForLights()
 			<< "4.Get current schedule\n5.Set schedule\n6.Quit to go back\n";
 		cout << "What would you like to do?\n";
 		cin >> deviceInput;
-		/*std::transform(deviceInput.begin(), deviceInput.end(), deviceInput.begin(),
-			[](unsigned char c) { return std::tolower(c); });*/
+		//if it's not a number, catch the error, dump back to the main menu
+	/*	try
+		{
+			if (isdigit(deviceInput)) {
+				continue;
+			}
+			else {
+				throw std::runtime_error("not a number!");
+			}
+		}
+		catch (const std::exception& bad)
+		{
+			cout << bad.what() << endl;
+			cout << "Returning to Main Menu.\n";
+			return;
+		}*/
 		if (deviceInput == 1) {
-			cout << "\nTEST, you got to POWER STATUS\n";
-			myLights.getPowerStatus();
+			//cout << "\nTEST, you got to POWER STATUS\n";
+			pMyLights->getPowerStatus();
 		};
 		if (deviceInput == 2) {
-			myLights.onOrOff();
+			pMyLights->onOrOff();
 		};
 		if (deviceInput == 3) {	//get a list of rooms, see if they're on or off
-			myLights.printRooms();
+			pMyLights->printRooms();
 		};
 		if (deviceInput == 4) {	//Getting current scheduling
-			myLights.getSchedule();
+			pMyLights->getSchedule();
 		};
 		if (deviceInput == 5) {	//setting scheduling
-			myLights.setSchedule();
+			pMyLights->setSchedule();
 		};
 		if (deviceInput == 6) {
 			cout << "Back to Main Menu...\n";
@@ -172,31 +200,27 @@ void UserInterface::showOptionsForSecurity()
 		int deviceInput;
 		int newPower;
 		cout << "Enter the number (1-4) of the option you'd like to select:\n";
-		cout << "1.Check power status\n2.Turn the power off or on\n3.Set schedule\n4.Change sensitivity level of the lights\n5.Quit to go back\n";
+		cout << "1.Check power status\n2.Turn the power off or on\n3.Get current schedule\n4.Set schedule\n5.Change security sensitivity level\n6.Quit to go back\n";
 		cout << "What would you like to do?\n";
 		cin >> deviceInput;
-		/*std::transform(deviceInput.begin(), deviceInput.end(), deviceInput.begin(),
-			[](unsigned char c) { return std::tolower(c); });*/
-		if (deviceInput == 1) {
-		//	cout << "TEST, you got to POWER STATUS\N";
-			mySecSystem.getPowerStatus();
+		if (deviceInput == 1) {	//check power
+			pMySecSystem->getPowerStatus();
 		};
-		if (deviceInput == 2) {
-	//		cout << "TEST, you got to CHANGE POWER STATUS\N";
-			mySecSystem.onOrOff();
+		if (deviceInput == 2) { //turn on or off
+			pMySecSystem->onOrOff();
 		};
-		if (deviceInput == 3) {
-			//NEED TO FIGURE OUT SCHEDULE
-			cout << "****************TEST, NEED TO FIGURE OUT SCHEDULE**************\N.";
+		if (deviceInput == 3) {	//get current schedule
+			pMySecSystem->getSchedule();
 		};
-		if (deviceInput == 4) {
-		//	cout << "TEST, you got to CHANGE SECURITY LIGHT SENSITIVITY\N";
+		if (deviceInput == 4) {	//get current schedule
+			pMySecSystem->setSchedule();
+		};
+		if (deviceInput == 5) {	//chnge sensitivy level
 			cout << "What would you like the security system's sensitivity level to be set to? (1 lowest, 5 highest): ";
 			cin >> newPower;
-			mySecSystem.setLightSensitivity(newPower);
-
+			pMySecSystem->setLightSensitivity(newPower);
 		};
-		if (deviceInput == 5) {
+		if (deviceInput == 6) {
 			cout << "Back to Main Menu...\n";
 			break;
 		};
@@ -218,33 +242,33 @@ void UserInterface::showOptionsForTV()
 		/*std::transform(deviceInput.begin(), deviceInput.end(), deviceInput.begin(),
 			[](unsigned char c) { return std::tolower(c); });*/
 		if (deviceInput == 1) {	//check power status
-			myTelevision.getPowerStatus();
+			pMyTelevision->getPowerStatus();
 		};
 		if (deviceInput == 2) { //set new power status
-			myTelevision.onOrOff();
+			pMyTelevision->onOrOff();
 		};
 		if (deviceInput == 3) { //check current channel
-			cout << "The current channel is set to: " << myTelevision.getCurrentChannel() << ".(I love this show!)\n";
+			cout << "The current channel is set to: " << pMyTelevision->getCurrentChannel() << ".(I love this show!)\n";
 		};
 		if (deviceInput == 4) { //change the channel
 			int newChannel;
-			int oldChannel = myTelevision.getCurrentChannel();
+			int oldChannel = pMyTelevision->getCurrentChannel();
 			cout << "The current channel is set to: " << oldChannel << ".\n";
 			cout << "What would you like to change it to?\n";
 			cin >> newChannel;
-			myTelevision.setCurrentChannel(newChannel);
+			pMyTelevision->setCurrentChannel(newChannel);
 			if (oldChannel < newChannel) {
-				cout << "Great, you've turned the channel up to: " << myTelevision.getCurrentChannel() << ". Hope something good is on!\n";
+				cout << "Great, you've turned the channel up to: " << pMyTelevision->getCurrentChannel() << ". Hope something good is on!\n";
 			}
 			else if (oldChannel > newChannel) {
-				cout << "Great, you've turned the channel down to: " << myTelevision.getCurrentChannel() << ". Hope something good is on!\n";
+				cout << "Great, you've turned the channel down to: " << pMyTelevision->getCurrentChannel() << ". Hope something good is on!\n";
 			}
 		};
 		if (deviceInput == 5) {	//get current schedule
-			myTelevision.getSchedule();
+			pMyTelevision->getSchedule();
 		};
 		if (deviceInput == 6) { //change the schedule
-			myTelevision.setSchedule();
+			pMyTelevision->setSchedule();
 		};
 		if (deviceInput == 7) { //back to main menu
 			cout << "Back to Main Menu...\n";
@@ -266,21 +290,20 @@ void UserInterface::showOptionsForVacuum() {
 			cin >> deviceInput;
 			/*std::transform(deviceInput.begin(), deviceInput.end(), deviceInput.begin(),
 				[](unsigned char c) { return std::tolower(c); });*/
-			if (deviceInput == 1) {
-				cout << "\nTEST, you got to POWER STATUS\n";
-				myVac.getPowerStatus();
+			if (deviceInput == 1) { //check power status
+				pMyVac->getPowerStatus();
 			};
 			if (deviceInput == 2) {
-				myVac.onOrOff();
+				pMyVac->onOrOff();
 			};
 			if (deviceInput == 3) {	//get a list of rooms, see if they're on or off
-				myVac.printRooms();
+				pMyVac->printRooms();
 			};
 			if (deviceInput == 4) {	//Getting current scheduling
-				myVac.getSchedule();
+				pMyVac->getSchedule();
 			};
 			if (deviceInput == 5) {	//setting scheduling
-				myVac.setSchedule();
+				pMyVac->setSchedule();
 			};
 			if (deviceInput == 6) {
 				cout << "Back to Main Menu...\n";
@@ -319,34 +342,10 @@ void UserInterface:: showOptionsForDevice()
 			myDevice.setSchedule();
 			//UserInterface::setDeviceSchedule(myDevice);
 		};
-
 		if (deviceInput == 5) {
 			cout << "Back to Main Menu...\n";
 			break;
 		};
 	}
 }
-
-//a one-stop shop for scheduling all devices?? Unfortunately does not seem to persist in memory, not sure why
-//void UserInterface::setDeviceSchedule(Device anyDevice) {
-//	std::cout << "Let's set the schedule for your device." <<
-//		"Please use military time(i.e., '1750' for 5:30 PM\n";
-//	//do full week for now, give option for single day if there's time...
-//	int dayTurnOnTime;
-//	std::cout << "\nTurn-on time during the day: ";
-//	cin >> dayTurnOnTime;
-//	std::cout << "\nTurn-off time during the day: ";
-//	int dayTurnOffTime;
-//	cin >> dayTurnOffTime;
-//	std::cout << "\nTurn-on time during the evening: ";
-//	int nightTurnOnTime;
-//	cin >> nightTurnOnTime;
-//	std::cout << "\nTurn-off time during the evening: ";
-//	int nightTurnOffTime;
-//	cin >> nightTurnOffTime;
-//	anyDevice.DeviceSchedule.setWeeklySchedule(dayTurnOnTime, dayTurnOffTime, nightTurnOnTime, nightTurnOffTime);
-//	std::cout << "\nThank you! Printing the schedule:";
-//	anyDevice.DeviceSchedule.printWeeklySchedule();
-//
-//}
 

@@ -17,8 +17,6 @@ class UserInterface
 public:
 	UserInterface();
 	~UserInterface();
-	std::vector <std::string> devices;
-	void LoopThroughDevices();
 	void getInput();
 	void showOptionsForDevice();
 	void showOptionsForThermostat();
@@ -28,13 +26,19 @@ public:
 	void showOptionsForVacuum();
 	//void setDeviceSchedule(Device anyDevice);	//couldn't get this to work, going back to device specific
 
-	Device myDevice;	//for testing
+	//create an instance of each class, then a pointer to that object
+	Device myDevice;	//base class object for testing
 	Television myTelevision;
+	Television* pMyTelevision;
 	Thermostat myThermostat; 
+	Thermostat* pMyThermostat;
 	SecuritySystem mySecSystem;
+	SecuritySystem* pMySecSystem;
 	Vacuum myVac;
+	Vacuum* pMyVac;
 	Lights myLights;
-
+	Lights* pMyLights;
+	vector <Device> allDevices;
 	
 
 private:

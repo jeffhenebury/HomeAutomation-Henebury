@@ -3,7 +3,10 @@
 Vacuum::Vacuum()
 {
 	currentRoom = "Living Room";
-	std::vector <std::string> rooms = { "living room", "dining room", "bedroom" };
+	//std::vector <std::string> rooms = { "living room", "dining room", "bedroom" };
+	rooms.push_back("living room");
+	rooms.push_back("dining room");
+	rooms.push_back("bedroom");
 	deviceSound = "VROOOOOOOM! (Sorry kitten, I know you're scared of the vacuum!)\n";
 }
 
@@ -33,7 +36,7 @@ void Vacuum::printRooms()
 		cout << "Vacuum is currently ON and cleaning the following rooms:\n";
 	}
 	else if (!power) {
-		cout << "Lights are currently OFF and cleaning the following rooms:\n";
+		cout << "Vacuum is currently OFF. It is connected for cleaning the following rooms:\n";
 	}
 	for (string room : rooms) {
 		cout << room << "\n";

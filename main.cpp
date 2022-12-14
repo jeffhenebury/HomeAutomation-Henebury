@@ -11,7 +11,6 @@ int main()
     UserInterface User;
     User.getInput();
     
-    //WeekSchedule myWeek;
-    //myWeek.printWeeklySchedule();
+
     
 }

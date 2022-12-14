@@ -29,23 +29,52 @@ void Device::getSchedule()
 }
 
 
+bool Device::validateScheduleInput(int millTime)
+{//making sure that the input time is in military time
+	if (millTime >= 0 && millTime <= 2400) {
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
 void Device::setSchedule()
 {
+	//get the schedule in military time, error check for bad input
 	std::cout << "Let's set the schedule for your device." <<
 		"Please use military time(i.e., '1750' for 5:30 PM\n";
 	//do full week for now, give option for single day if there's time...
 	int dayTurnOnTime;
 	std::cout << "\nTurn-on time during the day: ";
 	cin >> dayTurnOnTime;
+	if (!validateScheduleInput(dayTurnOnTime)) {
+		cout << "Sorry, that isn't in military time (0-2400). Please try again.\n";
+		return;
+	}
 	std::cout << "\nTurn-off time during the day: ";
 	int dayTurnOffTime;
 	cin >> dayTurnOffTime;
+	if (!validateScheduleInput(dayTurnOffTime)) {
+		cout << "Sorry, that isn't in military time (0-2400). Please try again.\n";
+		return;
+	}
 	std::cout << "\nTurn-on time during the evening: ";
 	int nightTurnOnTime;
 	cin >> nightTurnOnTime;
+	if (!validateScheduleInput(nightTurnOnTime)) {
+		cout << "Sorry, that isn't in military time (0-2400). Please try again.\n";
+		return;
+	}
 	std::cout << "\nTurn-off time during the evening: ";
 	int nightTurnOffTime;
 	cin >> nightTurnOffTime;
+	if (!validateScheduleInput(nightTurnOffTime)) {
+		cout << "Sorry, that isn't in military time (0-2400). Please try again.\n";
+		return;
+	}
 	DeviceSchedule.setWeeklySchedule(dayTurnOnTime, dayTurnOffTime, nightTurnOnTime, nightTurnOffTime);
 	std::cout << "\nThank you! Printing the schedule:";
 	DeviceSchedule.printWeeklySchedule();
@@ -69,7 +98,7 @@ void Device::onOrOff()
 	cout << "Please enter 1 or 2: ";
 	cin >> inp;
 	if (inp == 1) { //on, so true
-		cout << "You have powered the device ON.\n";
+		cout << "\nYou have powered the device ON.\n";
 		power = true; //turn power on
 		doAction();
 	}

@@ -32,5 +32,5 @@ inline Day::Day(std::string dayStr, int dayInt)
 void Day::printDay()	//print the full schedule of the day
 {
 	std::cout << "\nDay: " << sDayOfWeek << "\nAutomatic Turn On Time (Day): " << turnOnTime_day << "\nAutomatic Turn Off Time (Day): " << turnOffTime_day 
-		<<"\nAutomatic Turn On Time (Evening):" << turnOnTime_evening << "\nAutomatic Turn On Time (Evening):" << turnOffTime_evening << "\n";
+		<<"\nAutomatic Turn On Time (Evening):" << turnOnTime_evening << "\nAutomatic Turn Off Time (Evening):" << turnOffTime_evening << "\n";
 }

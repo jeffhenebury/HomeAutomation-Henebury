@@ -12,17 +12,6 @@ Thermostat::~Thermostat()
 {
 }
 
-//void Thermostat::setPowerStatus(bool tOrF)
-//{
-//	power = tOrF;
-//}
-
-
-//void Thermostat::doAction()
-//{
-//	std::cout << deviceSound;	//mimic the action via printing a sound
-//}
-
 double Thermostat::getCurrentTemp()
 {
 	return currentTemp;
@@ -47,13 +36,17 @@ void Thermostat::changeTheTemp()
 	int oldTemp = getCurrentTemp();
 	std::cout << "TEST, you got to CHANGE THE TEMPERATURE.\n";
 	std::cout << "The current temperature is set to: " << oldTemp << " degrees.\n";
-	std::cout << "What would you like to change it to?";
+	std::cout << "What would you like to change it to? ";
 	std::cin >> newTemp;
 	setCurrentTemp(newTemp);
+	if (newTemp > 90 || newTemp < 0) {
+		std::cout << "No temperature change made. Please try again.\n";
+		return;
+	}
 	if (oldTemp < newTemp) {
 		std::cout << "Great, you've turned the temperature up to: " << getCurrentTemp() << " degrees.\n";
 	}
-	else if (oldTemp > newTemp) {
+	if (oldTemp > newTemp) {
 		std::cout << "Great, you've turned the temperature down to: " << getCurrentTemp() << " degrees.\n";
 	}
 }

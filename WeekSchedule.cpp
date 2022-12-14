@@ -3,28 +3,6 @@
 
 WeekSchedule::WeekSchedule()
 {
-	//start = std::chrono::steady_clock::now(); //set start time as moment the schedule is made
-	//end = std::chrono::steady_clock::duration(604800, 1);
-	/*const static std::string daysOfWeek[] = {
-	"Sunday",
-	"Monday",
-	"Tuesday",
-	"Wednesday",
-	"Thursday",
-	"Friday",
-	"Saturday"
-	};*/
-	//this doesn't compile...
-	//Day Sunday("Sunday", 1);
-	//Day Monday("Monday", 2);
-	//Day Tuesday("Tuesday", 3);
-	//Day Wednesday("Wednesday", 4);
-	//Day Thursday("Thursday", 5);
-	//Day Friday("Friday", 6);
-	//Day Saturday("Saturday", 7);
-	//weeklySchedule = { Sunday, Monday,Tuesday,Wednesday,Thursday,Friday,Saturday };
-	// 
-	// 
 	//Cannot figure out a way to just construct each Day object from the get-go, doing via calls instead
 	Sunday.sDayOfWeek = "Sunday";
 	Sunday.idayOfWeek = 1;
@@ -47,33 +25,15 @@ WeekSchedule::WeekSchedule()
 	Saturday.sDayOfWeek = "Saturday";
 	Saturday.idayOfWeek = 7;
 	weeklySchedule.push_back(Saturday);
-
-
-
-	//std::chrono::hours week = std::chrono::hours(168); //168 hours in a week
-	//std::chrono::hours day = std::chrono::hours(24); //24 hours in a day
-	//std::chrono::hours hour = std::chrono::hours(1); //i hour in an hour
 }
 
 WeekSchedule::~WeekSchedule()
 {
 }
 
-
-
 void WeekSchedule::setWeeklySchedule(int DayOnTime, int DayOffTime, int nightOnTime, int nightOffTime)
 {
-	//get the day from the , change its times for each day
-	//this first loop doesn't work, i think it's just making a copy of the objects in the vector...
-	// 
-	//for (Day day : weeklySchedule) {
-	//	day.turnOnTime_day = DayOnTime;
-	//	day.turnOffTime_day = DayOffTime;
-	//	day.turnOnTime_evening = nightOnTime;
-	//	day.turnOffTime_evening = nightOffTime;
-	//}
-
-	//so let's try passing a reference and an interator...
+	//let's try passing a reference and an interator...
 	for (auto& day : weeklySchedule) {
 		day.turnOnTime_day = DayOnTime;
 		day.turnOffTime_day = DayOffTime;
