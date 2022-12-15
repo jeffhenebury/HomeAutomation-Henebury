@@ -12,6 +12,8 @@
 #include <string>
 
 
+
+
 class UserInterface
 {
 public:
@@ -41,9 +43,6 @@ public:
 	vector <Device> allDevices;
 	//exeption checker
 	int testTheInput(int lowest, int highest);
-
-
-private:
 
 };
 

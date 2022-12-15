@@ -34,11 +34,11 @@ WeekSchedule::~WeekSchedule()
 void WeekSchedule::setWeeklySchedule(int DayOnTime, int DayOffTime, int nightOnTime, int nightOffTime)
 {
 	//let's try passing a reference and an interator...
-	for (auto& day : weeklySchedule) {
-		day.turnOnTime_day = DayOnTime;
-		day.turnOffTime_day = DayOffTime;
-		day.turnOnTime_evening = nightOnTime;
-		day.turnOffTime_evening = nightOffTime;
+	for (Day &thisDay : weeklySchedule) {
+		thisDay.turnOnTime_day = DayOnTime;
+		thisDay.turnOffTime_day = DayOffTime;
+		thisDay.turnOnTime_evening = nightOnTime;
+		thisDay.turnOffTime_evening = nightOffTime;
 	}
 	
 }

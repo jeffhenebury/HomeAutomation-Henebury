@@ -107,17 +107,12 @@ void Device::onOrOff()
 	}
 }
 
+void Device::TestMorningOn() {
+	//int morningTimeOn = DeviceSchedule.Sunday.turnOnTime_day;
+	//cout << "TEST #2 with method TestMorningOn, Sunday morning on time: " << morningTimeOn << endl;
+	int morningTimeOn = DeviceSchedule.weeklySchedule[0].turnOnTime_day;
+	cout << "TEST #2 with method TestMorningOn, Sunday morning on time: " << morningTimeOn << endl;
 
-//void Device::setPowerStatus(bool tOrF) {
-//	if (tOrF) { //true
-//		cout << "You have powered the device ON.\n";
-//		power = true; //turn power on
-//	}
-//	else {
-//		cout << "You have powered the device OFF.\n";
-//		power = false; //turn power on
-//
-//	}
-
+}
 
 

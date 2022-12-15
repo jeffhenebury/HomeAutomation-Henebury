@@ -79,7 +79,6 @@ void UserInterface::showOptionsForThermostat()
 		cout <<"Enter the number (1 - 6) of the option you'd like to select:\n";
 		cout << "1.Check current power status\n2.Turn the system on or off\n3.Change the temperature\n"
 			<< "4.Get current schedule\n5.Set schedule\n6.Quit to go back\n";
-		cout << "What would you like to do?\n";
 		//exception catch: if it's not a number, catch the error, dump back to the main menu
 		int deviceInput = testTheInput(1, 6);
 				if (deviceInput == 1) { //check power status
@@ -94,9 +93,11 @@ void UserInterface::showOptionsForThermostat()
 				};
 				if (deviceInput == 4) {	//Getting current scheduling
 					pMyThermostat->getSchedule();
+					HoursOn(myThermostat);
 				};
 				if (deviceInput == 5) {	//setting scheduling
 					pMyThermostat->setSchedule();
+					HoursOn(myThermostat);
 				};
 				if (deviceInput == 6) {
 					cout << "Back to Main Menu...\n";
@@ -128,9 +129,11 @@ void UserInterface::showOptionsForLights()
 		};
 		if (deviceInput == 4) {	//Getting current scheduling
 			pMyLights->getSchedule();
+			HoursOn(myLights);
 		};
 		if (deviceInput == 5) {	//setting scheduling
 			pMyLights->setSchedule();
+			HoursOn(myLights);
 		};
 		if (deviceInput == 6) {
 			cout << "Back to Main Menu...\n";
@@ -158,9 +161,11 @@ void UserInterface::showOptionsForSecurity()
 		};
 		if (deviceInput == 3) {	//get current schedule
 			pMySecSystem->getSchedule();
+			HoursOn(mySecSystem);
 		};
 		if (deviceInput == 4) {	//get current schedule
 			pMySecSystem->setSchedule();
+			HoursOn(mySecSystem);
 		};
 		if (deviceInput == 5) {	//chnge sensitivy level
 			cout << "What would you like the security system's sensitivity level to be set to? (1 lowest, 5 highest): ";
@@ -211,9 +216,11 @@ void UserInterface::showOptionsForTV()
 		};
 		if (deviceInput == 5) {	//get current schedule
 			pMyTelevision->getSchedule();
+			HoursOn(myTelevision);
 		};
 		if (deviceInput == 6) { //change the schedule
 			pMyTelevision->setSchedule();
+			HoursOn(myTelevision);
 		};
 		if (deviceInput == 7) { //back to main menu
 			cout << "Back to Main Menu...\n";
@@ -244,9 +251,11 @@ void UserInterface::showOptionsForVacuum() {
 			};
 			if (deviceInput == 4) {	//Getting current scheduling
 				pMyVac->getSchedule();
+				HoursOn(myVac);
 			};
 			if (deviceInput == 5) {	//setting scheduling
 				pMyVac->setSchedule();
+				HoursOn(myVac);
 			};
 			if (deviceInput == 6) {
 				cout << "Back to Main Menu...\n";
@@ -303,11 +312,12 @@ void UserInterface:: showOptionsForDevice()
 		if (deviceInput == 3) {
 			cout << "TEST, you got to VIEW SCHEDULE\n";
 			myDevice.getSchedule();
+			HoursOn(myDevice);
 		};
 		if (deviceInput == 4) {
 			cout << "TEST, you got to CHANGE SCHEDULE\n";
 			myDevice.setSchedule();
-			//UserInterface::setDeviceSchedule(myDevice);
+			HoursOn(myDevice);
 		};
 		if (deviceInput == 5) {
 			cout << "Back to Main Menu...\n";

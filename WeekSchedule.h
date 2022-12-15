@@ -11,19 +11,7 @@ class WeekSchedule
 public:
 	WeekSchedule();
 	~WeekSchedule();
-	// Using time point and system_clock
-	/*std::chrono::time_point<std::chrono::steady_clock> start, end;*/
-		//std::chrono::hours week;
-
-	//const static std::string daysOfWeek[];	//maybe get rid of the array version?
-	//vector <string> daysOfWeekVect{ "Sunday",
-	//"Monday",
-	//"Tuesday",
-	//"Wednesday",
-	//"Thursday",
-	//"Friday",
-	//"Saturday"
-	//};
+	//create a day object for the 7 dats of the week
 	Day Sunday;
 	Day Monday;
 	Day Tuesday;

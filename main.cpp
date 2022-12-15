@@ -10,6 +10,8 @@ int main()
 {
     UserInterface User;
     User.getInput();
+    //HoursOn(User.myLights);
+    
     
 
     
