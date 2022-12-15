@@ -78,8 +78,6 @@ void Device::setSchedule()
 	DeviceSchedule.setWeeklySchedule(dayTurnOnTime, dayTurnOffTime, nightTurnOnTime, nightTurnOffTime);
 	std::cout << "\nThank you! Printing the schedule:";
 	DeviceSchedule.printWeeklySchedule();
-
-
 }
 
 void Device::getPowerStatus() {

@@ -31,13 +31,13 @@ UserInterface::~UserInterface() //destructor
 {
 }
 void UserInterface::getInput(){
-	int input;
 	while (true) {
-		cout << "Welcome to the Henebury Device Manager. We take care of all your devices!\n";
-		cout << "Here is the list of connected Devices:\n";
-		cout << "1.Thermostat\n2.Television\n3.Lights\n4.Security System\n5.Vacuum\n6.Exit program\n";
-		cout << "\nWhich device would you like to access? (Enter 1-5, or 6 to exit): ";
-		if ((cin >> input)) {
+		std::cout << "Welcome to the Henebury Device Manager. We take care of all your devices!\n";
+		std::cout << "Here is the list of connected Devices:\n";
+		std::cout << "1.Thermostat\n2.Television\n3.Lights\n4.Security System\n5.Vacuum\n6.Exit program\n";
+		std::cout << "\nWhich device would you like to access? (Enter 1-5, or 6 to exit): ";
+		//exception catch: if it's not a number, catch the error, dump back to the main menu
+		int input = testTheInput(1, 6);
 			if (input == 0) {	//base class Device, just for testing purposes
 			showOptionsForDevice();
 			continue;
@@ -66,13 +66,6 @@ void UserInterface::getInput(){
 				cout << "\nThank you for using the Henebury Device Manager. Goodbye!\n";
 				break;
 			}
-		}
-		else {
-			// not a valid number, give error message and redo the loop
-			cout << "\nInvalid Input! Please input a numerical value.\n\n";
-			cin.clear();    //clear inputted value
-			while (cin.get() != '\n'); // empty the loop, start over
-		};
 	};
 }
 
@@ -82,62 +75,33 @@ void UserInterface::showOptionsForThermostat()
 	cout << "Great, you chose Thermostat.\n";
 	while (true)
 	{
-		int deviceInput;
 		cout << "\n****\n";
 		cout <<"Enter the number (1 - 6) of the option you'd like to select:\n";
 		cout << "1.Check current power status\n2.Turn the system on or off\n3.Change the temperature\n"
 			<< "4.Get current schedule\n5.Set schedule\n6.Quit to go back\n";
 		cout << "What would you like to do?\n";
-		cin >> deviceInput;
-		//if it's not a number, catch the error, dump back to the main menu
-		/*try
-		{
-			cin >> deviceInput;
-			if (!isdigit(deviceInput)) {
-				throw "TEST, You have to put in a number!";
-			}
-		}
-		catch (const std::exception& bad)
-		{
-			cout << bad.what() << endl;
-			cout << "Returning to Main Menu.\n";
-			return;
-		}
-		*/
-		if (deviceInput == 1) { //check power status
-			pMyThermostat->getPowerStatus();
-		};
-		if (deviceInput == 2) {
-			//cout << "TEST, you got to CHANGE POWER STATUS\N";
-			pMyThermostat->onOrOff();
-		};
-		if (deviceInput == 3) {
-			pMyThermostat->changeTheTemp();
-			//put the below into a method instead...
-			/*int newTemp;
-			int oldTemp = myThermostat.getCurrentTemp();
-			cout << "TEST, you got to CHANGE THE TEMPERATURE.\N";
-			cout << "The current temperature is set to: " << oldTemp << " degrees.\n";
-			cout << "What would you like to change it to?";
-			cin >> newTemp;
-			myThermostat.setCurrentTemp(newTemp);
-			if (oldTemp < newTemp) {
-				cout << "Great, you've turned the temperature up to: " << myThermostat.getCurrentTemp() << " degrees.\n";
-			}
-			else if (oldTemp > newTemp) {
-				cout << "Great, you've turned the temperature down to: " << myThermostat.getCurrentTemp() << " degrees.\n";
-			}*/
-		};
-		if (deviceInput == 4) {	//Getting current scheduling
-			pMyThermostat->getSchedule();
-		};
-		if (deviceInput == 5) {	//setting scheduling
-			pMyThermostat->setSchedule();
-		};
-		if (deviceInput == 6) {
-			cout << "Back to Main Menu...\n";
-			break;
-		};
+		//exception catch: if it's not a number, catch the error, dump back to the main menu
+		int deviceInput = testTheInput(1, 6);
+				if (deviceInput == 1) { //check power status
+					pMyThermostat->getPowerStatus();
+				};
+				if (deviceInput == 2) {
+					//cout << "TEST, you got to CHANGE POWER STATUS\N";
+					pMyThermostat->onOrOff();
+				};
+				if (deviceInput == 3) {
+					pMyThermostat->changeTheTemp();					
+				};
+				if (deviceInput == 4) {	//Getting current scheduling
+					pMyThermostat->getSchedule();
+				};
+				if (deviceInput == 5) {	//setting scheduling
+					pMyThermostat->setSchedule();
+				};
+				if (deviceInput == 6) {
+					cout << "Back to Main Menu...\n";
+					break;
+				};
 	}
 }
 
@@ -146,31 +110,14 @@ void UserInterface::showOptionsForLights()
 	cout << "Great, you chose Lights.\n";
 	while (true)
 	{
-		int deviceInput;
 		cout << "\n****\n";
 		cout << "Enter the number (1 - 6) of the option you'd like to select:\n";
 		cout << "1.Check current power status\n2.Turn the lights on or off\n3.Get a list of light-connected rooms\n"
 			<< "4.Get current schedule\n5.Set schedule\n6.Quit to go back\n";
-		cout << "What would you like to do?\n";
-		cin >> deviceInput;
-		//if it's not a number, catch the error, dump back to the main menu
-	/*	try
-		{
-			if (isdigit(deviceInput)) {
-				continue;
-			}
-			else {
-				throw std::runtime_error("not a number!");
-			}
-		}
-		catch (const std::exception& bad)
-		{
-			cout << bad.what() << endl;
-			cout << "Returning to Main Menu.\n";
-			return;
-		}*/
-		if (deviceInput == 1) {
-			//cout << "\nTEST, you got to POWER STATUS\n";
+		/*cout << "What would you like to do?\n";
+		cin >> deviceInput;*/
+		int deviceInput = testTheInput(1, 6);
+		if (deviceInput == 1) {	//check power status
 			pMyLights->getPowerStatus();
 		};
 		if (deviceInput == 2) {
@@ -197,12 +144,12 @@ void UserInterface::showOptionsForSecurity()
 	cout << "Great, you chose Security System.\n";
 	while (true)
 	{
-		int deviceInput;
 		int newPower;
 		cout << "Enter the number (1-4) of the option you'd like to select:\n";
 		cout << "1.Check power status\n2.Turn the power off or on\n3.Get current schedule\n4.Set schedule\n5.Change security sensitivity level\n6.Quit to go back\n";
 		cout << "What would you like to do?\n";
-		cin >> deviceInput;
+		//exception catch: if it's not a number, catch the error, dump back to the main menu
+		int deviceInput = testTheInput(1, 6);
 		if (deviceInput == 1) {	//check power
 			pMySecSystem->getPowerStatus();
 		};
@@ -232,15 +179,13 @@ void UserInterface::showOptionsForTV()
 	cout << "Great, you chose TV.\n";
 	while (true)
 	{
-		int deviceInput;
 		cout << "\n****\n";
 		cout << "Enter the number (1-6) of the option you'd like to select:\n";
 		cout << "1.Check current power status\n2.Turn the TV on or off\n3.Check the current channel\n4.Change the channel\n"
 			<< "5.Get current schedule\n6.Set new schedule\n7.Quit to go back\n";
 		cout << "What would you like to do?\n";
-		cin >> deviceInput;
-		/*std::transform(deviceInput.begin(), deviceInput.end(), deviceInput.begin(),
-			[](unsigned char c) { return std::tolower(c); });*/
+		//exception catch: if it's not a number, catch the error, dump back to the main menu
+		int deviceInput = testTheInput(1, 7);
 		if (deviceInput == 1) {	//check power status
 			pMyTelevision->getPowerStatus();
 		};
@@ -281,15 +226,13 @@ void UserInterface::showOptionsForVacuum() {
 	cout << "Great, you chose Vacuum.\n";
 	while (true)
 		{
-			int deviceInput;
 			cout << "\n****\n";
 			cout << "Enter the number (1 - 6) of the option you'd like to select:\n";
 			cout << "1.Check current power status\n2.Turn the vacuum on or off\n3.Get a list of vacuum-connected rooms\n"
 				<< "4.Get current schedule\n5.Set schedule\n6.Quit to go back\n";
 			cout << "What would you like to do?\n";
-			cin >> deviceInput;
-			/*std::transform(deviceInput.begin(), deviceInput.end(), deviceInput.begin(),
-				[](unsigned char c) { return std::tolower(c); });*/
+			//exception catch: if it's not a number, catch the error, dump back to the main menu
+			int deviceInput = testTheInput(1, 6);
 			if (deviceInput == 1) { //check power status
 				pMyVac->getPowerStatus();
 			};
@@ -312,19 +255,43 @@ void UserInterface::showOptionsForVacuum() {
 	}
 }
 
+//use Exception Handling to check the input. If it's not one of the options, send error message, clear input, redo
+int UserInterface::testTheInput(int lowest, int highest)
+{
+	int deviceInput;
+	while (true)
+	{
+		cout << "What would you like to do?\n";
+		cin >> deviceInput;
+		try
+		{
+			if ((deviceInput < lowest) || (deviceInput > highest)) {
+				throw 101;
+			}
+			else {
+				return deviceInput;
+			}
+		}
+		catch (int badInput) {
+			cout << "Error: please enter a digit between " << lowest << " and " <<highest << endl;
+			cin.clear();    //clear inputted value
+			while (cin.get() != '\n'); // empty the loop, start over
+			continue;
+		}
+
+	}
+}
 //don't really need this one, just testing out the class to see if it works...
 void UserInterface:: showOptionsForDevice()
 {
 	cout << "Great, you chose the secret testing option: Device.\n";
 	while (true)
 	{
-		int deviceInput;
 		cout << "Enter the number (1-4) of the option you'd like to select:\n";
 		cout << "1.Check power status\n2.Change the power status\n3.View the schedule\n4.Set schedule\n5.Quit to go back\n";
 		cout << "What would you like to do?\n";
-		cin >> deviceInput;
-		/*std::transform(deviceInput.begin(), deviceInput.end(), deviceInput.begin(),
-			[](unsigned char c) { return std::tolower(c); });*/
+		//exception catch: if it's not a number, catch the error, dump back to the main menu
+		int deviceInput = testTheInput(1, 6);
 		if (deviceInput == 1) {
 			cout << "TEST, you got to POWER STATUS\n";
 			myDevice.getPowerStatus();

@@ -39,7 +39,9 @@ public:
 	Lights myLights;
 	Lights* pMyLights;
 	vector <Device> allDevices;
-	
+	//exeption checker
+	int testTheInput(int lowest, int highest);
+
 
 private:
 
