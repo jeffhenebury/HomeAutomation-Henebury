@@ -19,12 +19,12 @@ UserInterface::UserInterface()
 	pMyLights = &myLights;
 	pMySecSystem = &mySecSystem;
 	pMyVac = &myVac;
-	//fill the Device vector with all the device objects 
-	allDevices.push_back(myThermostat);
-	allDevices.push_back(myTelevision);
-	allDevices.push_back(myLights);
-	allDevices.push_back(mySecSystem);
-	allDevices.push_back(myVac);
+	//fill the Device vector with POINTERS to all the device objects 
+	allDevices.push_back(pMyThermostat);
+	allDevices.push_back(pMyTelevision);
+	allDevices.push_back(pMyLights);
+	allDevices.push_back(pMySecSystem);
+	allDevices.push_back(pMyVac);
 }
 
 UserInterface::~UserInterface() //destructor
@@ -34,10 +34,10 @@ void UserInterface::getInput(){
 	while (true) {
 		std::cout << "Welcome to the Henebury Device Manager. We take care of all your devices!\n";
 		std::cout << "Here is the list of connected Devices:\n";
-		std::cout << "1.Thermostat\n2.Television\n3.Lights\n4.Security System\n5.Vacuum\n6.Exit program\n";
+		std::cout << "1.Thermostat\n2.Television\n3.Lights\n4.Security System\n5.Vacuum\n6.Save Power Status\n7.Exit program\n";
 		std::cout << "\nWhich device would you like to access? (Enter 1-5, or 6 to exit): ";
 		//exception catch: if it's not a number, catch the error, dump back to the main menu
-		int input = testTheInput(1, 6);
+		int input = testTheInput(1, 7);
 			if (input == 0) {	//base class Device, just for testing purposes
 			showOptionsForDevice();
 			continue;
@@ -62,7 +62,11 @@ void UserInterface::getInput(){
 				showOptionsForVacuum();
 				continue;
 			}
-			if (input == 6) {
+			if (input == 6) {	//save to file
+				saveRecords(allDevices);
+				continue;
+			}
+			if (input == 7) {
 				cout << "\nThank you for using the Henebury Device Manager. Goodbye!\n";
 				break;
 			}
@@ -326,3 +330,40 @@ void UserInterface:: showOptionsForDevice()
 	}
 }
 
+//these are for saving the file
+
+inline void UserInterface::ignoreNewLine()
+{
+}
+
+void UserInterface::saveRecords(vector<Device*> allDevices)
+{
+	//open file for writing
+
+	try {
+		cout << "\nWriting contents to file...";
+		//open file for writing
+		ofstream fw("Devices.txt", std::ofstream::out);
+		//check if file was opened for writing
+		if (fw.is_open())
+		{
+			//store contents to text file
+			for (int i = 0; i < allDevices.size(); i++) {
+				//this works to get the power status:
+				//fw << allDevices[i]->power<< "\n";
+				//save the schedule of each device to the file
+				fw << allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOnTime_day << "\n";
+				fw << allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOffTime_day << "\n";
+				fw << allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOnTime_evening << "\n";
+				fw << allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOffTime_evening << "\n";
+
+			}
+			fw.close();
+		}
+		else cout << "Problem with opening file";
+	}
+	catch (const char* msg) {
+		cerr << msg << endl;
+	}
+	cout << "\nDone!\n";
+}

@@ -2,6 +2,9 @@
 #ifndef USERINTERFACE_H_
 #define USERINTERFACE_H_
 #include <vector>
+#include <iostream>
+#include <string>
+#include <fstream>
 #include "Device.h"
 #include "Thermostat.h"
 #include "Television.h"
@@ -26,7 +29,6 @@ public:
 	void showOptionsForLights();
 	void showOptionsForSecurity();
 	void showOptionsForVacuum();
-	//void setDeviceSchedule(Device anyDevice);	//couldn't get this to work, going back to device specific
 
 	//create an instance of each class, then a pointer to that object
 	Device myDevice;	//base class object for testing
@@ -40,7 +42,11 @@ public:
 	Vacuum* pMyVac;
 	Lights myLights;
 	Lights* pMyLights;
-	vector <Device> allDevices;
+	vector <Device *> allDevices;
+	//SaveToFile myFileSaver;
+	void ignoreNewLine();
+	void saveRecords(vector <Device*> allDevices);
+
 	//exeption checker
 	int testTheInput(int lowest, int highest);
 
