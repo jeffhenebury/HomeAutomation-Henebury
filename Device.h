@@ -2,7 +2,6 @@
 #ifndef DEVICE_H_
 #define DEVICE_H_
 #include <string>
-#include <chrono>
 #include <iostream>
 #include "WeekSchedule.h"
 
@@ -14,7 +13,7 @@ template <typename T>  void HoursOn(T anyDevice) {
 	int nightTimeOff = anyDevice.DeviceSchedule.weeklySchedule[0].turnOffTime_evening;
 	//std::cout << "TEST, Morning time on: " << morningTimeOn << endl;
 	float totalHoursOn = ((static_cast<float>(morningTimeOff) - morningTimeOn) + (nightTimeOff - nightTimeOn)) / 100;
-	std::cout << "Total hours this device is on per day: " << totalHoursOn << endl;
+	std::cout << "\n*Total hours this device is on per day: " << totalHoursOn << " *\n";
 
 }
 
