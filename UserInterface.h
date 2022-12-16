@@ -1,3 +1,6 @@
+//Jeff Henebury
+//implementation of the UserInterface header file
+//All the Device objects and their pointers are created here
 #pragma once
 #ifndef USERINTERFACE_H_
 #define USERINTERFACE_H_
@@ -44,7 +47,6 @@ public:
 	Lights myLights;
 	Lights* pMyLights;
 	vector <Device *> allDevices;
-	void ignoreNewLine();
 	//save device schedules to file
 	void saveRecords(vector <Device*> allDevices);
 	//load device schedules from file

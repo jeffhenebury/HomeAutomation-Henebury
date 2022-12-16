@@ -1,4 +1,6 @@
-//header file for security system class
+//Jeff Henebury
+//implementation of the SecuritySystem header file
+//can change the securituy light sensitivity
 #pragma once
 #ifndef SECURITYSYSTEM_H_
 #define SECURITYSYSTEM_H_

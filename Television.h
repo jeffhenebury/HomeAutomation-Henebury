@@ -1,3 +1,7 @@
+//Jeff Henebury
+//implementation of the UserInterface header file
+//can change the channel
+
 #pragma once
 #ifndef TELEVISION_H_
 #define TELEVISION_H_

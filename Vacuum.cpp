@@ -1,12 +1,11 @@
+//jeff henebury
+//implementation of the vacuum class and methods
+//
 #include "Vacuum.h"
 
 Vacuum::Vacuum()
 {
 	currentRoom = "Living Room";
-	//std::vector <std::string> rooms = { "living room", "dining room", "bedroom" };
-	rooms.push_back("living room");
-	rooms.push_back("dining room");
-	rooms.push_back("bedroom");
 	deviceSound = "VROOOOOOOM! (Sorry kitten, I know you're scared of the vacuum!)\n";
 }
 

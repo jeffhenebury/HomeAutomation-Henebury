@@ -1,3 +1,7 @@
+//Jeff Henebury
+//implementation of the Day class
+//Day is used to build the Week class
+
 #include "Day.h"
 
 

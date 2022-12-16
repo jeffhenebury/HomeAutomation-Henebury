@@ -1,3 +1,6 @@
+//jeff henebury
+//implementation of the security system class and methods
+//
 #include "SecuritySystem.h"
 
 SecuritySystem::SecuritySystem()
@@ -25,7 +28,7 @@ void SecuritySystem::setLightSensitivity(int newLightSensitivity)
             currentSensitivity = newLightSensitivity;
             std::cout << "Security sensitivity level has been successfully decreased to level: " << currentSensitivity << ".\n";
         }
-        else {
+        else {  //if turning it up...
             currentSensitivity = newLightSensitivity;
             std::cout << "Security sensitivity level has been successfully increased to level: " << currentSensitivity << ".\n";
         }   

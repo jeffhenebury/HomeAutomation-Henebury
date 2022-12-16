@@ -1,3 +1,7 @@
+//Jeff Henebury
+//implementation of the Device header file
+//this is the base class form which all the other devices (vacuum, lights, etc.) inherit from
+
 #pragma once
 #ifndef DEVICE_H_
 #define DEVICE_H_

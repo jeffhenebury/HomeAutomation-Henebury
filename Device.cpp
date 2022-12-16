@@ -1,4 +1,7 @@
 //Jeff Henebury
+//implementation of the Device class
+//this is the base class form which all the other devices (vacuum, lights, etc.) inherit from
+
 #include "Device.h"
 #include <iostream>
 using namespace std;

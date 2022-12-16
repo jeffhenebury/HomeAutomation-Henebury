@@ -1,3 +1,8 @@
+//Jeff Henebury
+//implementation of the WeekSchedule header file
+//contains a vector of Days to build a Week'
+//device schedule is built from here
+
 #pragma once
 #ifndef WEEKSCHEDULE_H_
 #define WEEKSCHEDULE_H_

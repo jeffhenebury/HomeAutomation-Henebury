@@ -1,3 +1,6 @@
+//jeff henebury
+//implementation of the WeekSchedule class and methods
+
 #include "WeekSchedule.h"
 
 

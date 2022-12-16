@@ -1,9 +1,11 @@
+//jeff henebury
+//implementation of the Lights class and methods
+//
 #include "Lights.h"
 
 Lights::Lights()
 {
 	currentRoom = "Living Room";
-	//std::vector <std::string> rooms = { "living room", "dining room", "bedroom" };
 	deviceSound = "CLICK! (There go the lights!)\n";
 }
 

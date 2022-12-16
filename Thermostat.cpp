@@ -1,3 +1,5 @@
+//jeff henebury
+//implementation of the Thermostat class and methods
 #include "Thermostat.h"
 
 

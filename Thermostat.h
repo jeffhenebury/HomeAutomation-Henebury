@@ -1,3 +1,6 @@
+//Jeff Henebury
+//implementation of the thermostat header file
+//can change the temp 
 #pragma once
 #ifndef THERMOSTAT_H_
 #define THERMOSTAT_H_

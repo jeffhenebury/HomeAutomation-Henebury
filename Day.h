@@ -1,4 +1,6 @@
-#pragma once
+//Jeff Henebury
+//implementation of the Day header file
+//Day is used to build the Week class
 #pragma once
 #ifndef DAY_H_
 #define DAY_H_
