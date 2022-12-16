@@ -10,6 +10,8 @@ and then, within each device, a 'choose what you want to do with that device' lo
 #include <algorithm>	//for transform
 #include <string>
 using namespace std;
+using std::cout;
+using std::cin;
 
 UserInterface::UserInterface()
 {	
@@ -34,10 +36,10 @@ void UserInterface::getInput(){
 	while (true) {
 		std::cout << "Welcome to the Henebury Device Manager. We take care of all your devices!\n";
 		std::cout << "Here is the list of connected Devices:\n";
-		std::cout << "1.Thermostat\n2.Television\n3.Lights\n4.Security System\n5.Vacuum\n6.Save Power Status\n7.Exit program\n";
+		std::cout << "1.Thermostat\n2.Television\n3.Lights\n4.Security System\n5.Vacuum\n6.Save Power Status\n7.Load Schedule From File\n8.Exit program\n";
 		std::cout << "\nWhich device would you like to access? (Enter 1-5, or 6 to exit): ";
 		//exception catch: if it's not a number, catch the error, dump back to the main menu
-		int input = testTheInput(1, 7);
+		int input = testTheInput(1, 8);
 			if (input == 0) {	//base class Device, just for testing purposes
 			showOptionsForDevice();
 			continue;
@@ -62,11 +64,15 @@ void UserInterface::getInput(){
 				showOptionsForVacuum();
 				continue;
 			}
-			if (input == 6) {	//save to file
+			if (input == 6) {	//save schedule to file
 				saveRecords(allDevices);
 				continue;
 			}
-			if (input == 7) {
+			if (input == 7) {	//load schedule from file
+				loadRecords(allDevices);
+				continue;
+			}
+			if (input == 8) {
 				cout << "\nThank you for using the Henebury Device Manager. Goodbye!\n";
 				break;
 			}
@@ -335,11 +341,10 @@ void UserInterface:: showOptionsForDevice()
 inline void UserInterface::ignoreNewLine()
 {
 }
-
+//save the schedule for all devices
 void UserInterface::saveRecords(vector<Device*> allDevices)
 {
 	//open file for writing
-
 	try {
 		cout << "\nWriting contents to file...";
 		//open file for writing
@@ -349,14 +354,20 @@ void UserInterface::saveRecords(vector<Device*> allDevices)
 		{
 			//store contents to text file
 			for (int i = 0; i < allDevices.size(); i++) {
-				//this works to get the power status:
-				//fw << allDevices[i]->power<< "\n";
-				//save the schedule of each device to the file
-				fw << allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOnTime_day << "\n";
-				fw << allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOffTime_day << "\n";
-				fw << allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOnTime_evening << "\n";
-				fw << allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOffTime_evening << "\n";
+				//save schedule for just one day, since all days have the same schedule for now...
+					fw << allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOnTime_day << "\n";
+					fw << allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOffTime_day << "\n";
+					fw << allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOnTime_evening << "\n";
+					fw << allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOffTime_evening << "\n";
 
+				//this works to get the power status:  //fw << allDevices[i]->power<< "\n";
+				//save the schedule of each device to the file
+				//for (int d = 0; d < 7; d++) {	//inner loop, to get to every day of the week??
+				//	fw << allDevices[i]->DeviceSchedule.weeklySchedule[d].turnOnTime_day << "\n";
+				//	fw << allDevices[i]->DeviceSchedule.weeklySchedule[d].turnOffTime_day << "\n";
+				//	fw << allDevices[i]->DeviceSchedule.weeklySchedule[d].turnOnTime_evening << "\n";
+				//	fw << allDevices[i]->DeviceSchedule.weeklySchedule[d].turnOffTime_evening << "\n";
+				///*}*/			
 			}
 			fw.close();
 		}
@@ -366,4 +377,58 @@ void UserInterface::saveRecords(vector<Device*> allDevices)
 		cerr << msg << endl;
 	}
 	cout << "\nDone!\n";
+}
+
+//load in the schedules for all devices
+void UserInterface::loadRecords(vector<Device*> allDevices)
+{
+	ifstream theReadInFile;
+	string sReadLine;
+	int iReadLine;
+
+	theReadInFile.open("Devices.txt", std::ofstream::out);	//open file
+	if (!theReadInFile)
+	{
+		cout << "Error opening the file.\n";
+	}
+	else {
+		//get the schedule for each device in the vector, plop in the line from the file
+		for (int i = 0; i < allDevices.size(); i++) {
+			//get 4 lines of input, since we have to fill in 4 lines for each day for each device (time on-morning, time-on-night, etc.)
+			//we're just saving the first day, so get just the first day per device...
+			std::getline(theReadInFile, sReadLine);
+			stringstream(sReadLine) >> iReadLine;	//convert file string to int
+			int turnOnTime_day = iReadLine;
+			std::getline(theReadInFile, sReadLine);
+			stringstream(sReadLine) >> iReadLine;
+			int turnOffTime_day = iReadLine;
+			std::getline(theReadInFile, sReadLine);
+			stringstream(sReadLine) >> iReadLine;
+			int turnOnTime_evening = iReadLine;
+			std::getline(theReadInFile, sReadLine);
+			stringstream(sReadLine) >> iReadLine;
+			int turnOffTime_evening = iReadLine;
+			// ... and then based off of that first day, set the schedule for the rest of the week for that device, then move on to next device
+			allDevices[i]->DeviceSchedule.setWeeklySchedule(turnOnTime_day, turnOffTime_day, turnOnTime_evening, turnOffTime_evening);
+			//allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOnTime_day = iReadLine;
+			//allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOffTime_day = iReadLine;
+			//allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOnTime_evening = iReadLine;
+			//allDevices[i]->DeviceSchedule.weeklySchedule[0].turnOffTime_evening = iReadLine;
+
+
+			//inner loop, to get to every day of the week??
+			//for (int d = 0; d < 7; d++) {	
+			//	std::getline(theReadInFile, sReadLine);
+			//	stringstream(sReadLine) >> iReadLine;	//convert string to int
+			//	allDevices[i]->DeviceSchedule.weeklySchedule[d].turnOnTime_day = iReadLine;
+			//	allDevices[i]->DeviceSchedule.weeklySchedule[d].turnOffTime_day = iReadLine;
+			//	allDevices[i]->DeviceSchedule.weeklySchedule[d].turnOnTime_evening = iReadLine;
+			//	allDevices[i]->DeviceSchedule.weeklySchedule[d].turnOffTime_evening = iReadLine;
+
+			//}
+		}
+		theReadInFile.close();
+		cout << "\nFile successfully loaded!\n\n";
+	}
+
 }

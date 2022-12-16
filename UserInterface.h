@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>	//for reading the file and converting string to int
 #include "Device.h"
 #include "Thermostat.h"
 #include "Television.h"
@@ -43,9 +44,12 @@ public:
 	Lights myLights;
 	Lights* pMyLights;
 	vector <Device *> allDevices;
-	//SaveToFile myFileSaver;
 	void ignoreNewLine();
+	//save device schedules to file
 	void saveRecords(vector <Device*> allDevices);
+	//load device schedules from file
+	void loadRecords(vector <Device*> allDevices);
+
 
 	//exeption checker
 	int testTheInput(int lowest, int highest);
