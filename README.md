@@ -1,5 +1,3 @@
-# HomeAutomation-Henebury
-
 ## Home Automation Course Project Overview
 ***In your course project, you will use the techniques and coding practices that you have learned to develop a C++ program. Each milestone assignment will include techniques taught in the earlier weeks and new techniques from the week in which the milestone is assigned. 
 ###Your Mission
