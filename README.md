@@ -45,6 +45,10 @@ Polymorphism
 Single Inheritance
 •	All the devices (i.e., vacuum, lights, etc.) are inherited from a Device base class. The inherited classes are then expanded as necessary.
 
+*Not-Very-Fancy Class Diagram*
+![home automation classes sketch](https://user-images.githubusercontent.com/76888842/211172232-b4fffa13-4bfa-4a74-ae6c-3ea68369d0b8.jpg)
+
+
 *initial program open*
 ![intitial program open](https://user-images.githubusercontent.com/76888842/211171869-094ebcad-7843-4e7e-bff4-db0aa50a1aa0.png)
 
