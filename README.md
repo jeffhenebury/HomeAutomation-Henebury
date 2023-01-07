@@ -47,6 +47,16 @@ Polymorphism
 Single Inheritance
 •	All the devices (i.e., vacuum, lights, etc.) are inherited from a Device base class. The inherited classes are then expanded as necessary.
 
+*initial program open*
 ![intitial program open](https://user-images.githubusercontent.com/76888842/211171869-094ebcad-7843-4e7e-bff4-db0aa50a1aa0.png)
 
+*exeption handling in main menu*
+![exeption handling in main menu](https://user-images.githubusercontent.com/76888842/211171894-4a4e51ef-28c6-4d94-a2b1-09f7fb3cfa72.png)
 
+*exeption handling in setting schedule*
+![exeption handling in setting schedule](https://user-images.githubusercontent.com/76888842/211171924-101faed2-71b3-41ae-aefb-076e287c3930.png)
+
+*setting lights schedule part 1*
+![setting lights schedule part 1](https://user-images.githubusercontent.com/76888842/211171952-6fb8a114-f709-4562-9cd0-b20e4cfd586e.png)
+*setting lights schedule part 2*
+![setting lights schedule part 2 with UDT output](https://user-images.githubusercontent.com/76888842/211171962-1ac77a8c-eee3-40f5-850b-1054d79786a5.png)
